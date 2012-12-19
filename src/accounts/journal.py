@@ -5,7 +5,7 @@ Created on Dec 18, 2012
 '''
 from libs import Database, Base, BaseModel
 
-from sqlalchemy import Column, Integer, String, Date,Float
+from sqlalchemy import Column, Integer, String, Date, Float
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref, deferred, validates
 
