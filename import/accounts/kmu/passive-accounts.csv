@@ -1,0 +1,20 @@
+number,parent,name,start
+2,,Passiven,0
+20,2,Fremdkapital kurzfristig,0
+2000,20,Lieferanten-Kreditoren ,0
+2001,20,Übrige Kreditoren,0
+2003,20,Verbindlichkeiten für Sozialversicherungen,0
+2100,20,Bank (Kontokorrent),0
+2200,20,Umsatzsteuer (MWSt),0
+2206,20,Geschuldete Verrechn.steuer,0
+2230,20,Dividendenschuld,0
+2300,20,Transitorische Passiven (TP),0
+2330,20,Rückstellungen (kurzfristig),0
+24,2,Fremdkapital langfristig,0
+2400,24,Bankdarlehen,0
+2440,24,Hypothek,0
+2500,24,Passivdarlehen von Dritten,0
+2600,24,Rückstellungen (langfristig),0
+28,2,Eigenkapital,0
+280,28,Eigenkapital GmbH,0
+2840,280,Stammkapital,0

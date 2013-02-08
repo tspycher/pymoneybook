@@ -1,0 +1,31 @@
+number,parent,name,start
+3,,Betriebsertrag aus Lieferungen/Leistungen,0
+3000,3,Produktionsertrag,0
+3095,3,Verluste bei Debitoren (Produktion),0
+3200,3,Warenertrag (Handel),0
+3295,3,Verluste bei Debitoren (Handel),0
+3400,3,Dienstleistungsertrag,0
+3600,3,†briger Betriebsertrag,0
+3700,3,Eigene Leistungen,0
+3800,3,Bestandesdiff 1/2 und 1/1 Fabrikate,0
+7,,Betriebliche Nebenerfolge,0
+7000,7,Betriebliche NebenertrŠge wenn betriebsfremder Anteil < 50%:,0
+7500,7,Ertrag aus betrieblichen Liegenschaften,0
+7510,7,Aufwand betriebliche Liegenschaften,0
+7900,7,Gewinne aus VerŠusserung von betrieblichen Anlagevermšgen,0
+8,,Aussenordentlicher und betriebsfremder Erfolg,0
+800,8,Ausserordentlicher Erfolg,0
+8000,800,Ausserordentlicher Ertrag,0
+8010,800,Ausserordentlicher Aufwand,0
+840,8,Ertrag betriebsfremde Finanzanlagen,0
+8400,840,Wertschriftenertrag,0
+8410,840,Wertschriftenaufwand,0
+850,8,Ertrag betriebsfremde Liegenschaften wenn betriebsfremder Anteil > 50%:,0
+8500,850,Liegenschaftsertrag,0
+8510,850,Liegenschaftsaufwand,0
+89,8,Steuern,0
+8900,89,Steueraufwand,0
+9,,Abschluss,0
+9000,9,Erolgsrechnung,0
+9100,9,Eršffnungsbilanz,0
+9101,9,Schlussbilanz,0

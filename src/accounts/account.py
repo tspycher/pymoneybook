@@ -11,6 +11,7 @@ Ertrag    -     +
 '''
 from libs import Database, Base, BaseModel
 from journal import Journal
+from tenants import currentTenant
 
 from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy import ForeignKey, event
@@ -29,7 +30,9 @@ class Account(BaseModel, Base):
     __tablename__ = "accounts"
     
     id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True)
+    parent_id = Column(Integer,ForeignKey("accounts.id"))
+
+    name = Column(String, unique=False)
     number = Column(Integer)
     type = Column(Integer)
     
@@ -51,6 +54,51 @@ class Account(BaseModel, Base):
     
     def _book(self, debitAccount, creditAccount, amount, text,document=None):
         return Journal(accountDebit_id=debitAccount.id, accountCredit_id=creditAccount.id, amount=amount, text=text,document_id=document).save()
+    
+    @staticmethod
+    def importAccounts(filename, typeofAccount):
+        import csv
+        f = open(filename, 'rb')
+        r = csv.DictReader(f, delimiter=',', quotechar='"')
+        for row in r:
+            parent = None
+            if row['parent']:
+                parent = Account.byNumber(row['parent']).id
+                #parent = row['parent']
+            
+            a = Account(number=row['number'], parent_id=parent, name=unicode(row['name']),type=typeofAccount, tenant_id=currentTenant())
+            a.save()
+            if row['start']:
+                pass
+                #Journal(accountDebit_id=a.id, amount=row['start'], text="Saldo from Import").save()
+        f.close()
+        
+    @staticmethod
+    def accountList(accountType = 1):
+        accounts = []
+        a = Account().queryObject().filter(Account.type == accountType,Account.parent_id == None, Account.tenant_id == currentTenant()).all()
+        for account in a:
+            x = {"id":account.id, "name":account.name}
+            parents = Account._iter(account)
+            if parents:
+                x["parents"] = parents
+            accounts.append(x)
+        return {"accounts":accounts}
+    
+    @staticmethod
+    def _iter(account):
+        accounts = []
+        a = Account().queryObject().filter(Account.parent_id == account.id).all()
+        if not a:
+            return
+        
+        for account in a:
+            x = {"id":account.id, "name":account.name}
+            parents = Account._iter(account)
+            if parents:
+                x["parents"] = parents
+            accounts.append(x)
+        return accounts
     
     @staticmethod
     def byNumber(number):

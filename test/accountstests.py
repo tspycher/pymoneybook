@@ -31,6 +31,17 @@ class AccountsTest(unittest.TestCase):
 
     def tearDown(self):
         pass
+    
+    def test_accountImport(self):
+        Account.importAccounts(os.path.abspath("../import/accounts/kmu/active-accounts.csv"), Account.ACTIVE)
+        Account.importAccounts(os.path.abspath("../import/accounts/kmu/passive-accounts.csv"), Account.PASSIVE)
+        Account.importAccounts(os.path.abspath("../import/accounts/kmu/income-accounts.csv"), Account.INCOME)
+        Account.importAccounts(os.path.abspath("../import/accounts/kmu/expense-accounts.csv"), Account.EXPENSE)
+        import json
+        print json.dumps(Account.accountList(Account.ACTIVE), indent=1)
+        print json.dumps(Account.accountList(Account.PASSIVE), indent=1)
+        print json.dumps(Account.accountList(Account.INCOME), indent=1)
+        print json.dumps(Account.accountList(Account.EXPENSE), indent=1)
 
     def test_createAccount(self):
         accountActive = Account(name="Bank",number="1100",type=Account.ACTIVE)

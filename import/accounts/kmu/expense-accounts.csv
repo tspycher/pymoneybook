@@ -1,0 +1,24 @@
+number,parent,name,start
+4,,"Aufwand für Material, Waren und Drittleistungen",0
+4000,4,Materialeinkauf,0
+4200,4,Warenaufwand (Handel),0
+4600,4,übriger Materialaufwand,0
+5,,Personalaufwand,0
+5000,5,Löhne Produktion,0
+5070,5,Sozialaufwand Produktion,0
+5200,5,Löhne Handel,0
+5270,5,Sozialaufwand Handel,0
+5600,5,Löhne Verwaltung,0
+5670,5,Sozialaufwand Verwaltung,0
+6,,Sonstiger Betriebsaufwand,0
+6000,6,Raumaufwand,0
+6100,6,Unterhalt und Reparaturen,0
+6200,6,Fahrzeugaufwand,0
+6300,6,Versicherungsaufwand,0
+6400,6,Energieaufwand,0
+6500,6,Verwaltung- und Informatikaufwand,0
+6600,6,Werbeaufwand,0
+6700,6,übriger Betriebsaufwand,0
+6800,6,Zinsaufwand,0
+6850,6,Zinsertrag,0
+6900,6,Abschreibungen,0

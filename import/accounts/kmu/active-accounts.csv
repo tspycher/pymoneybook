@@ -1,0 +1,38 @@
+number,parent,name,start
+1,,Aktiven,0
+10,1,Umlaufsvermögen,0
+100,10,Flüssige Mittel und Wertschriften,0
+1000,100,Kasse,0
+1010,100,Post,0
+1020,100,Bank (Kontokorrent),0
+1060,100,Wertschriften (kurzfristig realisierbar),0
+110,10,Forderungen,0
+1100,110,Kunden-Debitoren,0
+1109,110,Delkredere,0
+1110,110,Übrige Debitoren,0
+1170,110,Vorsteuer auf Materialaufwand und Dienstleistungen,0
+1171,110,Vorsteuer auf Investitionen und übriger Betriebsaufwand,0
+1176,110,Guthaben Verrechnungssteuer,0
+120,10,Vorräte,0
+1200,120,Warenbestand (Handelswaren),0
+1210,120,Vorräte Rohstoffe,0
+1260,120,Vorräte Fertigfabrikate,0
+130,10,Aktive Rechnungsabgrenzung,0
+1300,130,Transitorische Aktiven (TA),0
+14,1,Anlagevermögen,0
+140,14,Finanzanlagen,0
+1420,140,Beteiligungen,0
+1440,140,Aktivdarlehen (Darlehen an),0
+150,14,Mobile Sachanlagen,0
+1500,150,Maschinen/Apparate,0
+1509,150,Wb Maschinen/Apparate,0
+1510,150,Mobilien/Einrichtungen,0
+1519,150,Wb Mobilien/Einrichtungen,0
+1530,150,Fahrzeuge,0
+1539,150,Wb-Fahrzeuge,0
+1540,150,Werkzeuge und Geräte,0
+160,14,Immobilien,0
+1600,160,Immobilien,0
+1609,160,Wb Immobilien,0
+170,14,Immaterielle Anlagen,0
+1700,170,"Patente, Know how, Lizenzen",0
