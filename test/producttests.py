@@ -14,7 +14,8 @@ from products import *
 
 class ProductsTest(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         dbFile = "/tmp/testing_products.db"
         if os.path.exists(dbFile):
             os.unlink(dbFile)
@@ -56,7 +57,9 @@ class ProductsTest(unittest.TestCase):
         self.assertEqual(str(document2.esr()), "0100000149510>000000000000000000000000026+ 010045167>", "ESR line does not match")
         self.assertAlmostEqual(first=docsum, second=149.51, msg="There is a wrong price %f not equal to %f" % (docsum,float(149.51)))
         
-        print document.serialize()['Document']
+        #print document.serialize()['Document']
+        
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

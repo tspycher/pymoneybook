@@ -11,12 +11,13 @@ import os
 from libs import Database
 from accounts import * 
 from tenants import *
+from products import *
 
 
 class AccountsTest(unittest.TestCase):
 
-
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         dbFile = "/tmp/testing_accounts.db"
         if os.path.exists(dbFile):
             os.unlink(dbFile)
@@ -43,8 +44,8 @@ class AccountsTest(unittest.TestCase):
         self.assertIsNotNone(accountActive, "Could not create Account, is None")
         
         accountAny = Account(name="Any",number="4100",type=Account.ERTRAG)
-        accountAny.bookSoll(2000.0, accountAny)
         accountAny.save()
+        accountAny.bookSoll(2000.0, accountAny)
 
         soll = 1000.0
         haben = 400.0
@@ -60,6 +61,33 @@ class AccountsTest(unittest.TestCase):
         self.assertEqual(accountAufwand.saldo(), haben+rechnung, "The Saldo of the Account is not equal %f" % (haben+rechnung))
         self.assertEqual(accountActive.saldo(), soll-haben-rechnung, "The Saldo of the Account is not equal %f" % (soll-haben-rechnung))
 
+    def test_document_accounting(self):
+        docs = [
+            Documentposition(product=Product(name="Harddisk", number="ABC-1236", price=129.90, description="Blubb"), deduction=10, quantity=1),
+            Documentposition(product=Product(name="Cable", number="ABC-1237", price=11.10, description="A cool cable"), deduction=0.0, quantity=1)
+        ]
+
+        document2 = Document(documentpositions=docs, type=Document.BILL, partner=Partner(name="Customer2 GmbH"))
+        document2.save()
+        
+        accountDebitor = Account(name="Debitor1",number="1201",type=Account.ACTIVE)
+        accountDebitor.save()
+        accountIncome = Account(name="Verkauf von Hardware",number="4100",type=Account.INCOME)
+        accountIncome.save()
+        accountBank = Account(name="New Bank",number="1101",type=Account.ACTIVE)
+        accountBank.save()
+        
+        document2.bookInvoiceSend(Account.byNumber("1201"),Account.byNumber("4100"))
+        print Account.byNumber("4100").saldo()
+        #self.assertEqual(document2.sum(), Account.byNumber("1201").saldo(), "Debitor Saldo is not equal")
+        #self.assertEqual(document2.sum(), Account.byNumber("4100").saldo(), "Income Saldo is not equal")
+
+        document2.bookInvoicePaid(Account.byNumber("1201"), Account.byNumber("1101"))
+        #self.assertEqual(document2.sum(), Account.byNumber("4100").saldo(), "Income Saldo is not equal")
+        #self.assertEqual(Account.byNumber("1201").saldo(), 0.0 , "Debitor Saldo is not 0.0")
+        #self.assertEqual(document2.sum(), Account.byNumber("1101").saldo(), "Bank Saldo is not equal")
+        
+        #print document2.jsonSerialize()
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

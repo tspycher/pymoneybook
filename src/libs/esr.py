@@ -59,7 +59,7 @@ class Esr(object):
         
     def _reference(self, reference):
         x = str(reference).replace(" ", "")
-        x = x.rjust(26,'0')                   # either 15 or 26 chars long
+        x = x.ljust(26,'0')                   # either 15 or 26 chars long
         return "%s%s" % (x,str(self._parity(x)))
     
     def _amount(self, amount, typeNo = 1):

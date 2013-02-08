@@ -37,22 +37,26 @@ class Account(BaseModel, Base):
     tenant = relationship("Tenant",backref=backref("accounts", order_by=id))
     
     
-    def bookSoll(self, amount, otherAccount, text = None):
-        return self.bookDebit(amount, otherAccount, text)
+    def bookSoll(self, amount, otherAccount, text = None, document=None):
+        return self.bookDebit(amount, otherAccount, text, document)
     
-    def bookDebit(self, amount, otherAccount, text = None):
-        return self._book(self, otherAccount, amount, text)
+    def bookDebit(self, amount, otherAccount, text = None, document=None):
+        return self._book(self, otherAccount, amount, text, document)
     
-    def bookHaben(self,amount, otherAccount, text = None):
-        return self.bookCredit(amount, otherAccount, text)
+    def bookHaben(self,amount, otherAccount, text = None, document=None):
+        return self.bookCredit(amount, otherAccount, text, document)
         
-    def bookCredit(self, amount, otherAccount, text = None):
-        return self._book(otherAccount, self, amount, text)
+    def bookCredit(self, amount, otherAccount, text = None, document=None):
+        return self._book(otherAccount, self, amount, text, document)
     
-    def _book(self, debitAccount, creditAccount, amount, text):
-        journal = Journal(accountDebit_id=debitAccount.id, accountCredit_id=creditAccount.id, amount=amount, text=text)
+    def _book(self, debitAccount, creditAccount, amount, text,document=None):
+        journal = Journal(accountDebit_id=debitAccount.id, accountCredit_id=creditAccount.id, amount=amount, text=text,document_id=document)
         journal.save()
         return journal
+    
+    @staticmethod
+    def byNumber(number):
+        return Account().queryObject().filter(Account.number==number).first()
         
     def saldo(self):
         db = Database.instance()

@@ -24,6 +24,9 @@ class Journal(BaseModel, Base):
     amount = Column(Float)
     text = Column(String)
     
+    document_id = Column(Integer, ForeignKey("documents.id"))
+    document = relationship("Document",backref=backref("journalentries", order_by=id))
+    
     tenant_id = Column(Integer, ForeignKey("tenants.id"))
     tenant = relationship("Tenant",backref=backref("journalentries", order_by=id))
 
