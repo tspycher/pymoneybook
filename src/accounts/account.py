@@ -50,9 +50,7 @@ class Account(BaseModel, Base):
         return self._book(otherAccount, self, amount, text, document)
     
     def _book(self, debitAccount, creditAccount, amount, text,document=None):
-        journal = Journal(accountDebit_id=debitAccount.id, accountCredit_id=creditAccount.id, amount=amount, text=text,document_id=document)
-        journal.save()
-        return journal
+        return Journal(accountDebit_id=debitAccount.id, accountCredit_id=creditAccount.id, amount=amount, text=text,document_id=document).save()
     
     @staticmethod
     def byNumber(number):
