@@ -9,7 +9,9 @@ import unittest
 import os
 
 from libs import Database
-from accounts import Account 
+from accounts import * 
+from tenants import *
+
 
 class AccountsTest(unittest.TestCase):
 
@@ -20,6 +22,11 @@ class AccountsTest(unittest.TestCase):
             os.unlink(dbFile)
         db = Database.instance('sqlite:///%s' % dbFile)
         db.buildTables()
+        
+        # Create Tenant
+        tenant = Tenant(name="zerodine GmbH", esr_account="01-1234-5", esr_reference_prefix="999888")
+        tenant.save()
+        Current.instance(id=tenant.id)
 
     def tearDown(self):
         pass

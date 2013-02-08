@@ -9,7 +9,7 @@ import datetime
 import json
 
 try:
-    from sqlalchemy import create_engine #, ForeignKey
+    from sqlalchemy import create_engine, ForeignKey
     #from sqlalchemy import Column, Date, Integer, String
     from sqlalchemy.ext.declarative import declarative_base 
     #from sqlalchemy.orm import relationship, backref
@@ -58,7 +58,6 @@ class BaseModel(object):
     
     created = Column(DateTime,default=datetime.datetime.now,onupdate=datetime.datetime.now)
     updated = Column(DateTime,default=datetime.datetime.now,onupdate=datetime.datetime.now)
-    
     logger = Logger.instance()
     
     def save(self, commit = True):
@@ -122,3 +121,8 @@ class BaseModel(object):
         
     #def __repr__(self):
         #return "<%s(%s)>" % (self.name(), self.serialize())
+    
+    @staticmethod
+    def gen_tenant_id(mapper, connection, instance):
+        from tenants import currentTenant
+        instance.tenant_id = currentTenant()

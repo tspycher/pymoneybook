@@ -1,3 +1,4 @@
+from esr import Esr
 from singleton import Singleton
 from configuration import Configuration
 from logger import Logger

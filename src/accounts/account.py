@@ -13,7 +13,7 @@ from libs import Database, Base, BaseModel
 from journal import Journal
 
 from sqlalchemy import Column, Integer, String, Date
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, event
 from sqlalchemy.orm import relationship, backref, deferred, validates
 from sqlalchemy.sql import func
 
@@ -32,6 +32,10 @@ class Account(BaseModel, Base):
     name = Column(String, unique=True)
     number = Column(Integer)
     type = Column(Integer)
+    
+    tenant_id = Column(Integer, ForeignKey("tenants.id"))
+    tenant = relationship("Tenant",backref=backref("accounts", order_by=id))
+    
     
     def bookSoll(self, amount, otherAccount, text = None):
         return self.bookDebit(amount, otherAccount, text)
@@ -66,3 +70,6 @@ class Account(BaseModel, Base):
         #print "%s Debit: %f Credit: %f %d %s" % (self.name, sumDebit, sumCredit, self.type, self.type & 1)
 
         return total
+
+event.listen(Account, 'before_insert', Account.gen_tenant_id)
+event.listen(Account, 'before_update', Account.gen_tenant_id)

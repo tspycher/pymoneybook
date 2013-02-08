@@ -6,7 +6,7 @@ Created on Dec 18, 2012
 from libs import Database, Base, BaseModel
 
 from sqlalchemy import Column, Integer, String, Date, Float
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, event
 from sqlalchemy.orm import relationship, backref, deferred, validates
 
 
@@ -23,3 +23,9 @@ class Journal(BaseModel, Base):
     
     amount = Column(Float)
     text = Column(String)
+    
+    tenant_id = Column(Integer, ForeignKey("tenants.id"))
+    tenant = relationship("Tenant",backref=backref("journalentries", order_by=id))
+
+event.listen(Journal, 'before_insert', Journal.gen_tenant_id)
+event.listen(Journal, 'before_update', Journal.gen_tenant_id)

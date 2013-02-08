@@ -1,4 +1,4 @@
 from product import Product
-from customer import Customer
+from partner import Partner
 from document import Document
 from documentposition import Documentposition
