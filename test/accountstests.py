@@ -12,6 +12,9 @@ from libs import Database
 from accounts import * 
 from tenants import *
 from products import *
+import hashlib
+import json
+
 
 
 class AccountsTest(unittest.TestCase):
@@ -37,11 +40,11 @@ class AccountsTest(unittest.TestCase):
         Account.importAccounts(os.path.abspath("../import/accounts/kmu/passive-accounts.csv"), Account.PASSIVE)
         Account.importAccounts(os.path.abspath("../import/accounts/kmu/income-accounts.csv"), Account.INCOME)
         Account.importAccounts(os.path.abspath("../import/accounts/kmu/expense-accounts.csv"), Account.EXPENSE)
-        import json
-        print json.dumps(Account.accountList(Account.ACTIVE), indent=1)
-        print json.dumps(Account.accountList(Account.PASSIVE), indent=1)
-        print json.dumps(Account.accountList(Account.INCOME), indent=1)
-        print json.dumps(Account.accountList(Account.EXPENSE), indent=1)
+        
+        self.assertEqual('cffc0d57de229014858b20db9e1b1f4fde02487e', hashlib.sha1(json.dumps(Account.accountList(Account.ACTIVE))).hexdigest(), "Import of active Accounts not successful")
+        self.assertEqual('9f1bdd8740ca8940e5174547920ad88278ef5460', hashlib.sha1(json.dumps(Account.accountList(Account.PASSIVE))).hexdigest(), "Import of active Accounts not successful")
+        self.assertEqual('900c515d08e36c02cceeb20a9b72a01a8e3fd243', hashlib.sha1(json.dumps(Account.accountList(Account.INCOME))).hexdigest(), "Import of active Accounts not successful")
+        self.assertEqual('10512f2789b79be8730b8e4be825ec4495cd4095', hashlib.sha1(json.dumps(Account.accountList(Account.EXPENSE))).hexdigest(), "Import of active Accounts not successful")
 
     def test_createAccount(self):
         accountActive = Account(name="Bank",number="1100",type=Account.ACTIVE)

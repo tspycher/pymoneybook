@@ -78,7 +78,7 @@ class Account(BaseModel, Base):
         accounts = []
         a = Account().queryObject().filter(Account.type == accountType,Account.parent_id == None, Account.tenant_id == currentTenant()).all()
         for account in a:
-            x = {"id":account.id, "name":account.name}
+            x = {"id":account.id, "number":account.number, "name":account.name}
             parents = Account._iter(account)
             if parents:
                 x["parents"] = parents
@@ -93,7 +93,7 @@ class Account(BaseModel, Base):
             return
         
         for account in a:
-            x = {"id":account.id, "name":account.name}
+            x = {"id":account.id, "number":account.number, "name":account.name}
             parents = Account._iter(account)
             if parents:
                 x["parents"] = parents

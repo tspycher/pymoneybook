@@ -54,7 +54,7 @@ class ProductsTest(unittest.TestCase):
         document2 = Document(documentpositions=docs, type=Document.BILL, partner=Partner(name="Customer2 GmbH"))
         document2.save()
         docsum = document2.sum()
-        self.assertEqual(str(document2.esr()), "0100000149510>000000000000000000000000026+ 010045167>", "ESR line does not match")
+        self.assertEqual(str(document2.esr()), "0100000149510>999888020000000000000000008+ 010012345>", "ESR line does not match")
         self.assertAlmostEqual(first=docsum, second=149.51, msg="There is a wrong price %f not equal to %f" % (docsum,float(149.51)))
         
         #print document.serialize()['Document']

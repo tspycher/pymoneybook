@@ -9,6 +9,7 @@ from tenant import Tenant
 class NoTenantError(Exception):
     pass
 
+
 @Singleton
 class Current(object):
     tenant = None
@@ -29,4 +30,4 @@ def currentTenant():
     try:
         return int(Current.instance().tenant.id)
     except:
-        return 1
+        raise NoTenantError("No Tenant Selected")
